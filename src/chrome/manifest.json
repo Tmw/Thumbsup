@@ -3,11 +3,11 @@
   "name": "thumbsup",
   "version": "1.0",
   "description": "Turn those endless streams of thumbsups on issues and pullrequests into something meaningful again.",
-  //"icons": {
-  //  "16": "icons/16.png",
-  //  "32": "icons/32.png",
-  //  "64": "icons/64.png"
-  //},
+  "icons": {
+    "16": "tu_16.png",
+    "48": "tu_48.png",
+    "128": "tu_128.png"
+  },
   "content_scripts": [
     {
       "matches": ["http://*.github.com/*", "https://*.github.com/*"],
