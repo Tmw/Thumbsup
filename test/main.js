@@ -59,7 +59,7 @@ const createComment = (body) => {
 // dynamically load the extenion to our test DOM
 const includeExtension = (done) => {
   let scriptTag = document.createElement('script');
-  scriptTag.src = 'base/dist/main.js';
+  scriptTag.src = 'base/src/common/main.js';
   scriptTag.type = 'text/javascript';
   scriptTag.onload = done;
   document.body.appendChild(scriptTag);
