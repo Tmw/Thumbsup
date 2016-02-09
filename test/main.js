@@ -10,7 +10,7 @@ const CommentTypes = {
 // create a default DOM which defaults to every comment type
 const setupDOM = (comments = [CommentTypes.meaningFul, CommentTypes.thumbsUp, CommentTypes.thumbsDown, CommentTypes.plusOne, CommentTypes.minusOne]) => {
   // setup the basic HTML to work with
-  let metadata = `
+  const metadata = `
     <div class="flex-table gh-header-meta">
       <div class="flex-table-item flex-table-item-primary">
         <a href="/tmw" class="author">tmw</a> opened this <span class="noun">Issue</span> <time datetime="2016-02-07T08:36:18Z" is="relative-time" title="Feb 7, 2016, 9:36 AM GMT+1">on Feb 07, 2016</time>
@@ -19,12 +19,49 @@ const setupDOM = (comments = [CommentTypes.meaningFul, CommentTypes.thumbsUp, Co
     </div>
   `;
 
-  let discussion = `
+  const discussion = `
     <div class="js-discussion js-socket-channel" data-channel="tmw/thumbsup">
     </div>
   `;
 
-  document.body.innerHTML = metadata + discussion;
+  const newCommentBox = `
+    <div class="discussion-timeline-actions">
+       <div class="timeline-comment-wrapper timeline-new-comment js-comment-container ">
+          <a href="/Tmw"><img alt="@Tmw" class="timeline-comment-avatar" height="48" src="https://avatars1.githubusercontent.com/u/639858?v=3&amp;s=96" width="48"></a>
+          <form accept-charset="UTF-8" action="/someaction" class="js-new-comment-form" data-form-nonce="blabla" data-remote="true" data-type="json" method="post">
+             <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="blabla/blabla"></div>
+             <div class="timeline-comment">
+                <input type="hidden" name="issue" value="1320">
+                <div class="js-suggester-container js-previewable-comment-form previewable-comment-form write-selected" data-preview-url="/preview?markdown_unsupported=false&amp;repository=2560988&amp;subject=1320&amp;subject_type=Issue">
+                   <div class="comment-form-head tabnav">
+                      <div class="js-toolbar toolbar-commenting">
+
+                      </div>
+                   </div>
+                   <div class="comment-form-error js-comment-form-error" style="display:none">    There was an error creating your Issue.</div>
+                   <div class="write-content js-write-bucket js-uploadable-container js-upload-markdown-image upload-enabled is-default" data-upload-policy-url="/upload/policies/assets" data-upload-repository-id="2560988">
+                      <textarea name="comment[body]" tabindex="1" id="new_comment_field" placeholder="Leave a comment" aria-label="Comment body" class="input-contrast comment-form-textarea js-comment-field js-improved-comment-field js-task-list-field js-quick-submit js-size-to-fit js-suggester-field js-quote-selection-target js-session-resumable"></textarea>
+                      <div class="suggester-container">
+                         <div class="suggester js-suggester js-navigation-container" data-url="/karma-runner/karma/suggestions/issue/58450162">
+                         </div>
+                      </div>
+                   </div>
+                   <div class="comment-form-error comment-form-bottom js-comment-update-error"></div>
+                </div>
+                <div class="form-actions">
+                   <div id="partial-new-comment-form-actions" class="js-socket-channel js-updatable-content" data-channel="karma-runner/karma:issue:58450162:state" data-url="/karma-runner/karma/issues/1320/show_partial?partial=issues%2Fform_actions">
+                      <button type="submit" class="btn btn-primary" tabindex="2" data-disable-with="" data-disable-invalid="">
+                      Comment
+                      </button>
+                   </div>
+                </div>
+             </div>
+          </form>
+       </div>
+    </div>
+  `;
+
+  document.body.innerHTML = metadata + discussion + newCommentBox;
   comments.map(createComment);
 };
 
@@ -75,7 +112,8 @@ describe('setting up the test DOM', () => {
   });
 
   it('should have five comments', () => {
-    expect(document.querySelectorAll('.js-comment-container').length).toBe(5);
+    // 5 actual comments and one new comment box
+    expect(document.querySelectorAll('.js-comment-container').length).toBe(6);
   });
 
   it('should read 5 comments total', () => {

@@ -3,7 +3,7 @@
   let hiddenLabel;
 
   let grabComment = (node) => {
-    return node.querySelectorAll('.js-comment-body')[0];
+    return node.querySelector('.js-comment-body');
   };
 
   // when you remove all the +1 and -1 from the innerText
@@ -13,6 +13,11 @@
     return grabComment(node).innerText
       .replace(/\+1|\-1/, '')
       .trim() == '';
+  };
+
+  // determine if the given node is an actual comment
+  let isActualComment = (node) => {
+    return grabComment(node) !== null;
   };
 
   // actually hide the comment
@@ -47,7 +52,7 @@
   };
 
   // do the magic
-  let meaninglessComments = comments.filter(hasLittleValue).map(hideComment);
+  let meaninglessComments = comments.filter(isActualComment).filter(hasLittleValue).map(hideComment);
   if (meaninglessComments.length) {
     showEntries(meaninglessComments.length);
   }
