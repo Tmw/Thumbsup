@@ -1,9 +1,22 @@
 (function (document, window) {
-  let comments = Array.prototype.slice.call(document.querySelectorAll('.js-comment-container'));
+
+  // predefine all CSS selectors to use
+  const SELECTORS = {
+    COMMENT_BODY:      '.js-comment-body',
+    COMMENT_CONTAINER: '.js-comment-container',
+    META_HEADER:       '.gh-header-meta .flex-table-item-primary',
+    HIDDEN:            'js-thumbsup-extension-hidden',
+    DOTHIDDEN:         '.js-thumbsup-extension-hidden',
+    HIDDEN_COUNT:      'thumbsup-hidden-count',
+  };
+
+  // grab the comments to work with
+  let comments = Array.prototype.slice.call(document.querySelectorAll(SELECTORS.COMMENT_CONTAINER));
   let hiddenLabel;
 
+  // grab the actual comment node from a comment container node
   let grabComment = (node) => {
-    return node.querySelector('.js-comment-body');
+    return node.querySelector(SELECTORS.COMMENT_BODY);
   };
 
   // when you remove all the +1 and -1 from the innerText
@@ -22,20 +35,20 @@
 
   // actually hide the comment
   let hideComment = (node) => {
-    node.classList.add('js-thumbsup-extension-hidden');
+    node.classList.add(SELECTORS.HIDDEN);
   };
 
   // show the comment
   let showComment = (node) => {
-    node.classList.remove('js-thumbsup-extension-hidden');
+    node.classList.remove(SELECTORS.HIDDEN);
   };
 
   // create a label that shows number of hidden entries
   // and gives the user the oppertunity to unhide them
   let showEntries = (nodeCount) => {
-    let ghHeaderMeta = document.querySelector('.gh-header-meta .flex-table-item-primary');
+    let ghHeaderMeta = document.querySelector(SELECTORS.META_HEADER);
     hiddenLabel = document.createElement('a');
-    hiddenLabel.classList.add('thumbsup-hidden-count');
+    hiddenLabel.classList.add(SELECTORS.HIDDEN_COUNT);
     hiddenLabel.innerText = `(${nodeCount} hidden)`;
     hiddenLabel.href = '#';
     hiddenLabel.onclick = unhideEntries;
@@ -46,7 +59,7 @@
   // actually unhide the items when requested
   let unhideEntries = (e) => {
     e.preventDefault();
-    let hiddenComments = Array.prototype.slice.call(document.querySelectorAll('.js-thumbsup-extension-hidden'));
+    let hiddenComments = Array.prototype.slice.call(document.querySelectorAll(SELECTORS.DOTHIDDEN));
     hiddenComments.map(showComment);
     hiddenLabel.parentNode.removeChild(hiddenLabel);
   };
