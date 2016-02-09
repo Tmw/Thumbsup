@@ -32,13 +32,13 @@
 		<key>Whitelist</key>
 		<array>
 			<string>http://github.com/*/*/issues</string>
-			<string>https://github.com/*/*/issues</string>
+			<string>https://github.com/*/*/issues/*</string>
 		</array>
 	</dict>
 	<key>Description</key>
 	<string>Turn those endless streams of thumbsups on issues and pullrequests into something meaningful again.</string>
 	<key>DeveloperIdentifier</key>
-	<string>0000000000</string>
+	<string>ML4762CUBC</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
