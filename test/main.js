@@ -178,7 +178,6 @@ describe('not showing the (... hidden) label', () => {
 });
 
 describe('clicking the (... hidden) label', () => {
-  let comments;
   beforeAll((done) => {
     setupDOM();
     includeExtension(() => {
@@ -187,20 +186,14 @@ describe('clicking the (... hidden) label', () => {
       let event = new Event('click');
       label.dispatchEvent(event);
 
-      // get reference to the comments
-      comments = Array.prototype.slice.call(document.querySelectorAll('.js-comment-container'));
-
       // tell jasmine we're ready to move on
       done();
     });
   });
 
   it('should show all comments when clicking the label', () => {
-    expect(comments[0].classList[2]).not.toBe('js-thumbsup-extension-hidden');
-    expect(comments[1].classList[2]).not.toBe('js-thumbsup-extension-hidden');
-    expect(comments[2].classList[2]).not.toBe('js-thumbsup-extension-hidden');
-    expect(comments[3].classList[2]).not.toBe('js-thumbsup-extension-hidden');
-    expect(comments[4].classList[2]).not.toBe('js-thumbsup-extension-hidden');
+    let comments = Array.prototype.slice.call(document.querySelectorAll('.js-thumbsup-extension-hidden'));
+    expect(comments.length).toBe(0);
   });
 
   it('should remove the label from the DOM', () => {
