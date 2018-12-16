@@ -1,3 +1,4 @@
+**warning** this repository is archived.
 # Thumbsup :+1:
 
 A Google Chrome and Apple Safari extension to hide those pesky streams of +1's and :+1:'s in Github issues.
